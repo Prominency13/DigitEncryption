@@ -35,7 +35,7 @@ public class App {
             System.out.println(" ");
             // Заканчивается алгоритм работы заполнения массивов
 
-            // Ввод слова 
+            // Ввод слова
             System.out.println("Введите слово для зашифровки");
             String toEncrypt = s.nextLine();
 
