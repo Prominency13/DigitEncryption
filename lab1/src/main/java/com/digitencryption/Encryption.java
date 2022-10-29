@@ -61,9 +61,9 @@ public class Encryption {
             tempSourceContent += Character.toLowerCase(sourceContent.charAt(i));
         }
         sourceContent = tempSourceContent;
-        
+
         int counters[] = new int[keyTableContent.size()];
-        
+
         for (int i = 0; i < sourceContent.length(); i++) {
                 for(Map.Entry<Character, List<Integer>> entry: keyTableContent.entrySet()){
                     int counterForCounters = 0;
@@ -119,4 +119,18 @@ public class Encryption {
         }
                 return decryptedContent;
         }
+
+    public void encryptedMessageToFile (String encryptedContent) throws IOException{
+        String path ="src\\encrypted.txt";
+            try (FileWriter messageFile = new FileWriter(path)) {
+                messageFile.write(encryptedContent);
+            }
+        }
+
+    public void keyTableToFile (Map<Character, List<Integer>>keyTableContent) throws IOException{
+        String path = "src\\keyTableContent.txt";
+        try (FileWriter messageFile = new FileWriter(path)) {
+            messageFile.write(keyTableContent.toString());
+        }
     }
+}

@@ -2,11 +2,14 @@ package com.digitencryption;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Map.Entry;
 
 import org.junit.Test;
@@ -107,7 +110,7 @@ public class TestEncryption {
             for(Entry<Character, List<Integer>> entry : keyTableContent.entrySet()){
                 if(entry.getValue().contains(i)){
                     decryptedContent+=entry.getKey();
-                } 
+                }
             }
         }
         System.out.println(decryptedContent);
@@ -116,5 +119,24 @@ public class TestEncryption {
         // System.out.println(encryption.decryptContent(encryption.encryptContent(encryption.generateKeyTable(encryption.calculateCountForEachMap(encryption.readFile()))),
         //                 encryption.generateKeyTable(encryption.calculateCountForEachMap(encryption.readFile()))));
 
+    }
+
+    @Test
+    public void encryptedMessageToFile () throws Exception{
+        Map<Character, List<Integer>>keyTableContent = encryption.generateKeyTable(encryption.calculateCountForEachMap(encryption.readFile()));
+        String encryptedContent = encryption.encryptContent(encryption.readFile(), keyTableContent);
+        String path ="src\\encrypted.txt";
+        try (FileWriter messageFile = new FileWriter(path)) {
+            messageFile.write(encryptedContent);
+        }
+    }
+
+    @Test
+    public void keyTableToFile () throws Exception{
+        Map<Character, List<Integer>>keyTableContent = encryption.generateKeyTable(encryption.calculateCountForEachMap(encryption.readFile()));
+        String path = "src\\keyTableContent.txt";
+        try (FileWriter messageFile = new FileWriter(path)) {
+            messageFile.write(keyTableContent.toString());
+        }
     }
 }
